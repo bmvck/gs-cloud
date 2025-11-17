@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  oracledb:
+    image: gvenzl/oracle-xe:21-slim
+    container_name: gs-oracle
+    restart: always
+
+    environment:
+      ORACLE_PASSWORD: gspassword      # senha do SYS/SYSTEM
+      ORACLE_DATABASE: GSDB           # nome do PDB
+      APP_USER: GSUSER               # usuário da aplicação
+      APP_USER_PASSWORD: gspassword  # senha do usuário da aplicação
+      TZ: America/Sao_Paulo
+
+    ports:
+      - "1521:1521"
+
+    volumes:
+      # Datafiles do Oracle (persistência)
+      - oracle_data:/opt/oracle/oradata
+      # Scripts de inicialização (01_run_gs_schema.sh + gs_schema.sql)
+      - ./oracledb/db-init:/docker-entrypoint-initdb.d
+
+volumes:
+  oracle_data:
