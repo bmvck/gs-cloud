@@ -61,9 +61,12 @@ CREATE TABLE colaborador (
   area_colab    VARCHAR2(50),
   responsavel   NUMBER(10),
   empresa       VARCHAR2(100),
-  ramal_interno CHAR(4)
+  ramal_interno CHAR(4),
+  senha         VARCHAR2(255),
+  role          VARCHAR2(20)  DEFAULT 'USER'
 );
 ALTER TABLE colaborador ADD CONSTRAINT colaborador_pk PRIMARY KEY (id_colab);
+ALTER TABLE colaborador ADD CONSTRAINT colaborador_email_uk UNIQUE (email_colab);
 
 CREATE TABLE emprestimo (
   id_emprestimo        NUMBER(5)    NOT NULL,
@@ -170,9 +173,11 @@ INSERT INTO ativo VALUES (2, 'Lenovo', 'ThinkPad E14',  'E14-002',     'ATV', TO
 INSERT INTO ativo VALUES (3, 'HP',     'ProDesk 400',   'PD400-003',   'ATV', TO_DATE('2022-11-05','YYYY-MM-DD'), NULL, 20);
 INSERT INTO ativo VALUES (4, 'Bosch',  'Furadeira GSB', 'BOSCH-004',   'ATV', TO_DATE('2022-06-20','YYYY-MM-DD'), NULL, 40);
 
-INSERT INTO colaborador VALUES (1001, 'Ana Souza',   '12345678901', 'ana.souza@empresa.com',   '11999990001', 'ATV', 'Analista de TI', 'Tecnologia', NULL,  'Empresa X', '1001');
-INSERT INTO colaborador VALUES (1002, 'Bruno Lima',  '23456789012', 'bruno.lima@empresa.com',  '11999990002', 'ATV', 'Coordenador TI', 'Tecnologia', 1001, 'Empresa X', '1002');
-INSERT INTO colaborador VALUES (1003, 'Carlos Silva','34567890123','carlos.silva@empresa.com','11999990003','ATV','Analista Infra',  'Infra',       1002, 'Empresa X', '1003');
+-- Senhas padrão: admin123 (serão criptografadas pelo BCrypt na aplicação)
+-- Hash BCrypt de "admin123": $2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy
+INSERT INTO colaborador VALUES (1001, 'Ana Souza',   '12345678901', 'ana.souza@empresa.com',   '11999990001', 'ATV', 'Analista de TI', 'Tecnologia', NULL,  'Empresa X', '1001', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'USER');
+INSERT INTO colaborador VALUES (1002, 'Bruno Lima',  '23456789012', 'bruno.lima@empresa.com',  '11999990002', 'ATV', 'Coordenador TI', 'Tecnologia', 1001, 'Empresa X', '1002', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'ADMIN');
+INSERT INTO colaborador VALUES (1003, 'Carlos Silva','34567890123','carlos.silva@empresa.com','11999990003','ATV','Analista Infra',  'Infra',       1002, 'Empresa X', '1003', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'USER');
 
 INSERT INTO emprestimo VALUES (5001, TO_DATE('2024-11-01','YYYY-MM-DD'), NULL,                          'EM_USO',    1, 1001);
 INSERT INTO emprestimo VALUES (5002, TO_DATE('2024-10-15','YYYY-MM-DD'), TO_DATE('2024-10-20','YYYY-MM-DD'), 'DEVOLVIDO', 3, 1003);
