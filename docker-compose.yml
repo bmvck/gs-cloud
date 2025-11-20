@@ -22,5 +22,22 @@ services:
       # Scripts de inicialização (01_run_gs_schema.sh + gs_schema.sql)
       - ./oracledb/db-init:/docker-entrypoint-initdb.d
 
+  api-java:
+    build:
+      context: ./JavaGS
+      dockerfile: Dockerfile
+    container_name: gs-api-java
+    restart: always
+    depends_on:
+      - oracledb
+    environment:
+      DATABASE_HOST: oracledb
+      DATABASE_USER: GSUSER
+      DATABASE_PASSWORD: gspassword
+      PROFILE: dev
+    ports:
+      - "8080:8080"
+
 volumes:
   oracle_data:
+
