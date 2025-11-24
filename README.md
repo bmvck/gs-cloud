@@ -104,13 +104,13 @@ Conexão típica (SQL Developer / cliente JDBC):
 A API fica acessível em:
 
 ```text
-http://<IP-DA-VM>:8080
+http://9.169.156.28:8080
 ```
 
-Se houver Swagger configurado no projeto, normalmente estará em:
+Swagger configurado no projeto em:
 
 ```text
-http://<IP-DA-VM>:8080/swagger-ui.html
+http://9.169.156.28:8080/swagger-ui.html
 ```
 
 ---
