@@ -253,3 +253,12 @@ A partir desse compose, você pode:
 ---
 
 Qualquer nova API ou serviço Docker que for adicionado deve ser incluído neste mesmo `docker-compose.yml`, mantendo o projeto **GS Cloud** centralizado e fácil de subir com apenas um comando.
+
+
+Front .Net http://52.177.60.207/
+
+<img width="1878" height="793" alt="image" src="https://github.com/user-attachments/assets/497e9f28-b75b-44ec-bc01-a7bcdee7f29b" />
+
+<img width="1413" height="849" alt="image" src="https://github.com/user-attachments/assets/1caa3e05-9d47-4ddb-8b27-37a3dd1d6098" />
+
+
